@@ -1,0 +1,6 @@
+name: Furniture
+version: '${project.version}-${git.commit.id.describe-short}'
+main: com.jazzkuh.furniture.FurniturePlugin
+authors: [Jazzkuh]
+api-version: 1.21
+has-open-classloader: true
