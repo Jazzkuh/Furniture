@@ -3,6 +3,9 @@ package com.jazzkuh.furniture;
 
 import com.jazzkuh.furniture.modules.configuration.DefaultConfiguration;
 import com.jazzkuh.commandlib.spigot.SpigotCommandLoader;
+import com.jazzkuh.furniture.utils.ChatUtils;
+import com.jazzkuh.inventorylib.loader.InventoryLoader;
+import com.jazzkuh.inventorylib.objects.Menu;
 import com.jazzkuh.modulemanager.spigot.SpigotModuleManager;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,7 +40,20 @@ public final class FurniturePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        SpigotCommandLoader.setFormattingProvider((commandException, message) -> ChatUtils.prefix("Furniture", message));
         SpigotCommandLoader.loadResolvers();
+
+        InventoryLoader.setFormattingProvider(message -> {
+            if (message.contains("next")) {
+                return ChatUtils.prefix("Furniture", "<error>Er is geen volgende pagina.");
+            } else if (message.contains("previous")) {
+                return ChatUtils.prefix("Furniture", "<error>Er is geen vorige pagina.");
+            }
+
+            return ChatUtils.prefix("Furniture", message);
+        });
+
+        Menu.init(this);
 
         moduleManager.enable();
 

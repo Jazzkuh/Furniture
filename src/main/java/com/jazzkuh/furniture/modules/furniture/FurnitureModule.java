@@ -25,7 +25,7 @@ import java.util.Map;
 @Getter
 public class FurnitureModule extends SpigotModule<FurniturePlugin> {
     private DataModule dataModule;
-    private final Map<String, FurnitureModel> customBlocks = new HashMap<>();
+    private final Map<String, FurnitureModel> furnitureModels = new HashMap<>();
 
     public FurnitureModule(SpigotModuleManager<FurniturePlugin> moduleManager, DataModule dataModule) {
         super(moduleManager);
@@ -49,7 +49,7 @@ public class FurnitureModule extends SpigotModule<FurniturePlugin> {
     }
 
     public void loadFurniture() {
-        this.customBlocks.clear();
+        this.furnitureModels.clear();
         dataModule.getMongoScope().readAllAsync(FurnitureModel.class).whenComplete((customBlockModels, throwable) -> {
             if (throwable != null) {
                 throwable.printStackTrace();
@@ -57,15 +57,15 @@ public class FurnitureModule extends SpigotModule<FurniturePlugin> {
             }
 
             for (FurnitureModel furnitureModel : customBlockModels) {
-                customBlocks.put(furnitureModel.getKey(), furnitureModel);
+                furnitureModels.put(furnitureModel.getKey(), furnitureModel);
             }
-            this.getLogger().info("Loaded " + customBlocks.size() + " custom blocks.");
+            this.getLogger().info("Loaded " + furnitureModels.size() + " custom blocks.");
         });
     }
 
     @Nullable
     public FurnitureModel getFurnitureModel(String identifier) {
-        return customBlocks.get(identifier);
+        return furnitureModels.get(identifier);
     }
 
     @Nullable

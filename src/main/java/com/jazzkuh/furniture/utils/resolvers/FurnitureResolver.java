@@ -15,7 +15,7 @@ public final class FurnitureResolver implements ContextResolver<FurnitureModel>,
 
     @Override
     public List<String> resolve(AnnotationCommandSender<CommandSender> annotationCommandSender, String string) {
-        return furnitureModule.getCustomBlocks().keySet().stream().toList();
+        return furnitureModule.getFurnitureModels().keySet().stream().toList();
     }
 
     @Override
