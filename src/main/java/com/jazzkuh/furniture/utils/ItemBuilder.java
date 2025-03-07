@@ -1,5 +1,8 @@
 package com.jazzkuh.furniture.utils;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.DyedItemColor;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
@@ -251,6 +254,22 @@ public class ItemBuilder {
             LeatherArmorMeta im = (LeatherArmorMeta) is.getItemMeta();
             im.setColor(color);
             is.setItemMeta(im);
+        } catch (ClassCastException ignored) {
+        }
+        return this;
+    }
+
+    public ItemBuilder setColor(Color color) {
+        try {
+            is.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor().color(color).build());
+        } catch (ClassCastException ignored) {
+        }
+        return this;
+    }
+
+    public ItemBuilder itemModel(String model) {
+        try {
+            is.setData(DataComponentTypes.ITEM_MODEL, Key.key(model));
         } catch (ClassCastException ignored) {
         }
         return this;

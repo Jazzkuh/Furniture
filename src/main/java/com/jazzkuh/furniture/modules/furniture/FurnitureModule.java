@@ -6,6 +6,7 @@ import com.jazzkuh.furniture.framework.furniture.Furniture;
 import com.jazzkuh.furniture.framework.furniture.FurnitureEntity;
 import com.jazzkuh.furniture.modules.data.DataModule;
 import com.jazzkuh.furniture.modules.furniture.commands.FurnitureCommand;
+import com.jazzkuh.furniture.modules.furniture.commands.ItemModifierCommand;
 import com.jazzkuh.furniture.modules.furniture.listeners.*;
 import com.jazzkuh.furniture.modules.furniture.models.FurnitureModel;
 import com.jazzkuh.furniture.utils.PersistentData;
@@ -43,6 +44,8 @@ public class FurnitureModule extends SpigotModule<FurniturePlugin> {
         loadFurniture();
 
         registerComponent(new FurnitureCommand(this, dataModule));
+        registerComponent(new ItemModifierCommand());
+
         registerComponent(new FurniturePlaceListener(this));
         registerComponent(new FurnitureBreakListener(this));
         registerComponent(new FurnitureRemoveEntityListener());
